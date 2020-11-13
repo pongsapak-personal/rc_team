@@ -53,6 +53,7 @@ ros::ServiceClient arming_client;
 ros::ServiceClient land_client;
 ros::ServiceClient set_mode_client;
 ros::ServiceClient takeoff_client;
+ros::Subscriber command_sub;
 
 /**
 \ingroup control_functions
@@ -467,6 +468,41 @@ int gnc_land()
   }
 }
 
+char start_wp;
+char stop_wp;
+
+void command_cb(const std_msgs::String::ConstPtr& msg)
+{
+#if 1
+	const char* buff = msg->data.c_str();
+	ROS_INFO("\nrecv message: %s\n", buff);
+
+	if(strcmp(buff, "halt") == 0)
+	{
+		ROS_INFO("\nDetect halt\n");
+		Control_halt();
+	}
+	else if(strcmp(buff, "start") == 0)
+    {
+		ROS_INFO("\nDetect start\n");
+		Control_start();
+    }
+    else if(strcmp(buff, "recall") == 0)
+    {
+    	ROS_INFO("\nDetect recall\n");
+    	Control_recall();
+    }
+    else
+    {
+    		ROS_INFO("\nrDetect position /\n");
+    		start_wp = buff[0];
+    		stop_wp = buff[1];
+    		ROS_INFO("\nrDetect start: %c\n", start_wp);
+    		ROS_INFO("\nrDetect stop: %c\n", stop_wp);
+    }
+#endif
+}
+
 /**
 \ingroup control_functions
 This function is called at the beginning of a program and will start of the communication links to the FCU. The function requires the program's ros nodehandle as an input 
@@ -491,6 +527,7 @@ int init_publisher_subscriber(ros::NodeHandle controlnode)
 	set_mode_client = controlnode.serviceClient<mavros_msgs::SetMode>((ros_namespace + "/mavros/set_mode").c_str());
 	takeoff_client = controlnode.serviceClient<mavros_msgs::CommandTOL>((ros_namespace + "/mavros/cmd/takeoff").c_str());
 	collision_sub = controlnode.subscribe<sensor_msgs::LaserScan>("/spur/laser/scan", 1, scan_cb);
+	command_sub = controlnode.subscribe("cmd", 10, command_cb);
 
 }
 
