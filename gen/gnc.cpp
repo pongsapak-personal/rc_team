@@ -492,25 +492,30 @@ void command_cb(const std_msgs::String::ConstPtr& msg)
     }
 	else if(strcmp(buff, "takeoff") == 0)
     {
-		ROS_INFO("\nDetect start\n");
-		gnc_set_heading(0.0);
-		gnc_set_destination( 0.0, 0.0, 1.0);
+		ROS_INFO("\nDetect takeoff\n");
+		set_mode("GUIDED");
+		//gnc_arm();
+		gnc_takeoff(1.0);
     }
 	else if(strcmp(buff, "land") == 0)
     {
-		ROS_INFO("\nDetect start\n");
-		gnc_set_heading(0.0);
-		gnc_set_destination( 0.0, 0.0, 0.0);
+		ROS_INFO("\nDetect land\n");
+		gnc_land();
     }
     else
     {
     		ROS_INFO("\nDetect position /\n");
-    		char *tok = strtok(buff,",");
-    		x = ::atof(tok);
-            tok = strtok(NULL,",");
-            y = ::atof(tok);
-            tok = strtok(NULL,",");
-            z = ::atof(tok);
+    		char *tok = strtok(buff,":");
+    		if (strcmp(tok, "wp") == 0)
+    		{
+        		tok = strtok(NULL,",");
+        		x = ::atof(tok);
+                tok = strtok(NULL,",");
+                y = ::atof(tok);
+                tok = strtok(NULL,",");
+                z = ::atof(tok);
+    		}
+
     		ROS_INFO("\nx:%.2f y:%.2f z:%.2f\n", x, y, z);
     		gnc_set_destination( x, y, z);
     }
