@@ -468,13 +468,11 @@ int gnc_land()
   }
 }
 
-char start_wp;
-char stop_wp;
-
 void command_cb(const std_msgs::String::ConstPtr& msg)
 {
 #if 1
-	const char* buff = msg->data.c_str();
+	char* buff = (char*)msg->data.c_str();
+	float x, y, z;
 	ROS_INFO("\nrecv message: %s\n", buff);
 
 	if(strcmp(buff, "halt") == 0)
@@ -492,13 +490,29 @@ void command_cb(const std_msgs::String::ConstPtr& msg)
     	ROS_INFO("\nDetect recall\n");
     	Control_recall();
     }
+	else if(strcmp(buff, "takeoff") == 0)
+    {
+		ROS_INFO("\nDetect start\n");
+		gnc_set_heading(0.0);
+		gnc_set_destination( 0.0, 0.0, 1.0);
+    }
+	else if(strcmp(buff, "land") == 0)
+    {
+		ROS_INFO("\nDetect start\n");
+		gnc_set_heading(0.0);
+		gnc_set_destination( 0.0, 0.0, 0.0);
+    }
     else
     {
-    		ROS_INFO("\nrDetect position /\n");
-    		start_wp = buff[0];
-    		stop_wp = buff[1];
-    		ROS_INFO("\nrDetect start: %c\n", start_wp);
-    		ROS_INFO("\nrDetect stop: %c\n", stop_wp);
+    		ROS_INFO("\nDetect position /\n");
+    		char *tok = strtok(buff,",");
+    		x = ::atof(tok);
+            tok = strtok(NULL,",");
+            y = ::atof(tok);
+            tok = strtok(NULL,",");
+            z = ::atof(tok);
+    		ROS_INFO("\nx:%.2f y:%.2f z:%.2f\n", x, y, z);
+    		gnc_set_destination( x, y, z);
     }
 #endif
 }
