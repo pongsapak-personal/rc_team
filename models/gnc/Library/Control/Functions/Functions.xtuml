@@ -41,115 +41,161 @@ INSERT INTO S_SYNC
 	'create object instance ctrl of Controller;
 
 create object instance wp1 of Waypoint;
-wp1.x = -30;
-wp1.y = 0;
-wp1.z = 20;
+wp1.x = -8.5;
+wp1.y = 15;
+wp1.z = 1.5;
+wp1.heading = 45;
 relate ctrl to wp1 across R1.''begin with'';
 relate ctrl to wp1 across R3.''is flying to'';
 
 create object instance wp2 of Waypoint;
-wp2.x = -30;
-wp2.y = 0;
-wp2.z = 0;
+wp2.x = -8.5;
+wp2.y = 15;
+wp2.z = 1.5;
+wp2.heading = 90;
 relate wp1 to wp2 across R2.''follows'';
 
 create object instance wp3 of Waypoint;
-wp3.x = -30;
-wp3.y = 0;
-wp3.z = 50;
+wp3.x = -8.5;
+wp3.y = 26;
+wp3.z = 1.5;
+wp3.heading = 0;
 relate wp2 to wp3 across R2.''follows'';
 
 create object instance wp4 of Waypoint;
-wp4.x = -30;
-wp4.y = 30;
-wp4.z = 50;
+wp4.x = -8.5;
+wp4.y = 26;
+wp4.z = 1.5;
+wp4.heading = 90;
 relate wp3 to wp4 across R2.''follows'';
 
 create object instance wp5 of Waypoint;
-wp5.x = -30;
-wp5.y = 30;
-wp5.z = 0;
+wp5.x = -1;
+wp5.y = 29.5;
+wp5.z = 1.5;
+wp5.heading = -45;
 relate wp4 to wp5 across R2.''follows'';
 
 create object instance wp6 of Waypoint;
-wp6.x = -30;
-wp6.y = 30;
-wp6.z = 50;
+wp6.x = -1;
+wp6.y = 29.5;
+wp6.z = 1.5;
+wp6.heading = 0;
 relate wp5 to wp6 across R2.''follows'';
 
 create object instance wp7 of Waypoint;
-wp7.x = -20;
-wp7.y = 0;
-wp7.z = 50;
+wp7.x = -1;
+wp7.y = 29.5;
+wp7.z = 11;
+wp7.heading = 0;
 relate wp6 to wp7 across R2.''follows'';
 
 create object instance wp8 of Waypoint;
-wp8.x = -20;
-wp8.y = 0;
-wp8.z = 0;
+wp8.x = -1.5;
+wp8.y = 29.5;
+wp8.z = 11;
+wp8.heading = 0;
 relate wp7 to wp8 across R2.''follows'';
 
 create object instance wp9 of Waypoint;
-wp9.x = -20;
-wp9.y = 0;
-wp9.z = 50;
+wp9.x = 2;
+wp9.y = 29.5;
+wp9.z = 11;
+wp9.heading = 0;
 relate wp8 to wp9 across R2.''follows'';
 
 create object instance wp10 of Waypoint;
-wp10.x = -20;
-wp10.y = 50;
-wp10.z = 50;
+wp10.x = -1;
+wp10.y = 29.5;
+wp10.z = 11;
+wp10.heading = 0;
 relate wp9 to wp10 across R2.''follows'';
 
 create object instance wp11 of Waypoint;
-wp11.x = -20;
-wp11.y = 50;
-wp11.z = 0;
+wp11.x = -1;
+wp11.y = 29.5;
+wp11.z = 1.5;
+wp11.heading = 0;
 relate wp10 to wp11 across R2.''follows'';
 
 create object instance wp12 of Waypoint;
-wp12.x = -20;
-wp12.y = 50;
-wp12.z = 50;
+wp12.x = 8;
+wp12.y = 26;
+wp12.z = 1.5;
+wp12.heading = -135;
 relate wp11 to wp12 across R2.''follows'';
 
 create object instance wp13 of Waypoint;
-wp13.x = -10;
-wp13.y = 0;
-wp13.z = 50;
+wp13.x = 8;
+wp13.y = 26;
+wp13.z = 1.5;
+wp13.heading = -90;
 relate wp12 to wp13 across R2.''follows'';
 
 create object instance wp14 of Waypoint;
-wp14.x = -10;
-wp14.y = 0;
-wp14.z = 0;
+wp14.x = 8;
+wp14.y = 12;
+wp14.z = 1.5;
+wp14.heading = 180;
 relate wp13 to wp14 across R2.''follows'';
 
 create object instance wp15 of Waypoint;
-wp15.x = -10;
-wp15.y = 0;
-wp15.z = 50;
+wp15.x = 8;
+wp15.y = 12;
+wp15.z = 1.5;
+wp15.heading = -90;
 relate wp14 to wp15 across R2.''follows'';
 
 create object instance wp16 of Waypoint;
 wp16.x = 0;
-wp16.y = 20;
-wp16.z = 50;
+wp16.y = 0;
+wp16.z = 1.5;
+wp16.heading = -225;
 relate wp15 to wp16 across R2.''follows'';
 
-create object instance wp17 of Waypoint;
-wp17.x = 0;
-wp17.y = 20;
-wp17.z = 0;
-relate wp16 to wp17 across R2.''follows'';
+/*
+create object instance rt1 of rotate;
+rt1.heading = 90;
+relate ctrl to rt1 across R6.''begin with'';
+relate ctrl to rt1 across R4.''start look'';
 
-create object instance wp18 of Waypoint;
-wp18.x = 0;
-wp18.y = 20;
-wp18.z = 50;
-relate wp17 to wp18 across R2.''follows'';
+create object instance rt2 of rotate;
+rt2.heading = 90;
+relate rt1 to rt2 across R5.''follows'';
 
+create object instance rt3 of rotate;
+rt3.heading = 0;
+relate rt2 to rt3 across R5.''follows'';
 
+create object instance rt4 of rotate;
+rt4.heading = 0;
+relate rt3 to rt4 across R5.''follows'';
+
+create object instance rt5 of rotate;
+rt5.heading = 0;
+relate rt4 to rt5 across R5.''follows'';
+
+create object instance rt6 of rotate;
+rt6.heading = 0;
+relate rt5 to rt6 across R5.''follows'';
+
+create object instance rt7 of rotate;
+rt7.heading = 0;
+relate rt6 to rt7 across R5.''follows'';
+
+create object instance rt8 of rotate;
+rt8.heading = 0;
+relate rt7 to rt8 across R5.''follows'';
+
+create object instance rt9 of rotate;
+rt9.heading = -90;
+relate rt8 to rt9 across R5.''follows'';
+
+create object instance rt10 of rotate;
+rt10.heading = -90;
+relate rt9 to rt10 across R5.''follows'';
+
+*/
 ',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
