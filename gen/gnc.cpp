@@ -166,9 +166,10 @@ void gnc_set_destination(float x, float y, float z)
 	float Ylocal = x*sin((correction_heading_g + local_offset_g - 90)*deg2rad) + y*cos((correction_heading_g + local_offset_g - 90)*deg2rad);
 	float Zlocal = z;
 
-	x = Xlocal + correction_vector_g.position.x + local_offset_pose_g.x;
-	y = Ylocal + correction_vector_g.position.y + local_offset_pose_g.y;
-	z = Zlocal + correction_vector_g.position.z + local_offset_pose_g.z;
+	//x = Xlocal + correction_vector_g.position.x + local_offset_pose_g.x;
+	//y = Ylocal + correction_vector_g.position.y + local_offset_pose_g.y;
+	//z = Zlocal + correction_vector_g.position.z + local_offset_pose_g.z;
+
 	ROS_INFO("Destination set to x: %f y: %f z: %f origin frame", x, y, z);
 
 	waypoint_g.pose.position.x = x;
